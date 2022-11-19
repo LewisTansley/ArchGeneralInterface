@@ -4,60 +4,52 @@ StartupAnimation(){
 
     clear
     sleep 0.1
-    figlet "P"
+    figlet "A"
     sleep 0.04
     clear
-    figlet "Pe"
+    figlet "AR"
     sleep 0.04
     clear
-    figlet "Per"
+    figlet "ARC"
     sleep 0.04
     clear
-    figlet "Pers"
+    figlet "ARCH"
     sleep 0.04
     clear
-    figlet "Perso"
-    sleep 0.04
-    clear 
-    figlet "Person"
+    figlet "ARCH"
+    figlet "C"
     sleep 0.04
     clear
-    figlet "Persona"
+    figlet "ARCH"
+    figlet "CO"
     sleep 0.04
     clear
-    figlet "Personal"
+    figlet "ARCH"
+    figlet "COM"
     sleep 0.04
     clear
-    figlet "Personal"
-    figlet "I"
+    figlet "ARCH"
+    figlet "COMM"
     sleep 0.04
     clear
-    figlet "Personal"
-    figlet "In"
+    figlet "ARCH"
+    figlet "COMMA"
     sleep 0.04
     clear
-    figlet "Personal"
-    figlet "Int"
+    figlet "ARCH"
+    figlet "COMMAN"
     sleep 0.04
     clear
-    figlet "Personal"
-    figlet "Inte"
+    figlet "ARCH"
+    figlet "COMMAND"
     sleep 0.04
     clear
-    figlet "Personal"
-    figlet "Inter"
+    figlet "ARCH"
+    figlet "COMMANDE"
     sleep 0.04
     clear
-    figlet "Personal"
-    figlet "Interf"
-    sleep 0.04
-    clear
-    figlet "Personal"
-    figlet "Interfa"
-    sleep 0.04
-    clear
-    figlet "Personal"
-    figlet "Interfac"
+    figlet "ARCH"
+    figlet "COMMANDER"
     sleep 0.04
     clear
     figlet "Personal"
@@ -74,7 +66,8 @@ MainMenu(){
 
     PS3='choose an option >> '
     options=("Working" 
-             "Gaming" 
+             "Gaming"
+             "Config"
              "Maintenance"
              "Brightness" 
              "Quit")
@@ -87,6 +80,10 @@ MainMenu(){
             ;;
             "Gaming")
                 Gaming
+                break
+            ;;
+            "Config")
+                Config
                 break
             ;;
             "Maintenance")
@@ -172,6 +169,11 @@ Gaming(){
 }
 
 Config(){
+    clear
+    figlet Select 
+    figlet Config
+    echo ;    
+
     PS3='choose config file for editing >> '
     options=("i3" 
              "picom"
@@ -183,6 +185,9 @@ Config(){
     do
         case $opt in
             "i3")
+                break
+            ;;
+            "picom")
                 break
             ;;
             "alacritty")
@@ -199,10 +204,18 @@ Config(){
             *) echo "invalid option $REPLY";;
         esac
     done
+
+    clear
+    MainMenu
     break
 }
 
 Brightness(){
+    clear
+    figlet Select 
+    figlet Value
+    echo ;
+    
     PS3='choose a brightness >> '
     options=("Max" 
              "Half"
@@ -232,11 +245,18 @@ Brightness(){
             *) echo "invalid option $REPLY";;
         esac
     done
+    clear
+    MainMenu
     break
 }
 
 Maintenance(){
-    PS3='choose a brightness >> '
+    clear
+    figlet Select 
+    figlet Type
+    echo ;
+
+    PS3='choose a Maintenance Type >> '
     options=("Safe"
              "Dangerous"
              "Cancel"
@@ -372,4 +392,4 @@ Social(){
 
 StartupAnimation
 MainMenu
-break
+exit
