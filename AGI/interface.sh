@@ -65,6 +65,7 @@ StartupAnimation(){
     sleep 0.1
     echo ;
 }
+
 MainMenu(){
     clear
     figlet Personal 
@@ -104,6 +105,7 @@ MainMenu(){
         esac
     done
 }
+
 Working(){
     clear
     figlet Select 
@@ -168,6 +170,38 @@ Gaming(){
     done
     break
 }
+
+Config(){
+    PS3='choose config file for editing >> '
+    options=("i3" 
+             "picom"
+             "alacritty"
+             "polybar"
+             "Cancel"
+             )
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "i3")
+                break
+            ;;
+            "alacritty")
+                break
+            ;;
+            "polybar")
+                break
+            ;;
+            "Cancel")
+                clear
+                MainMenu
+                break
+            ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+    break
+}
+
 Brightness(){
     PS3='choose a brightness >> '
     options=("Max" 
@@ -200,6 +234,7 @@ Brightness(){
     done
     break
 }
+
 Maintenance(){
     PS3='choose a brightness >> '
     options=("Safe"
@@ -227,6 +262,7 @@ Maintenance(){
     done
     break
 }
+
 Safe(){
     clear
     figlet Starting Maintenance
@@ -257,6 +293,7 @@ Dangerous(){
     clear
     break
 }
+
 WebDev(){
     clear
     sleep 0.2
@@ -303,6 +340,7 @@ GameDev(){
         esac
     done
 }
+
 Design(){
     clear
     break
@@ -311,6 +349,7 @@ Programming(){
     clear
     break
 }
+
 Solo(){
     clear
     figlet Starting Solo Play
@@ -333,3 +372,4 @@ Social(){
 
 StartupAnimation
 MainMenu
+break
