@@ -74,7 +74,8 @@ MainMenu(){
     PS3='choose an option >> '
     options=("Working" 
              "Gaming" 
-             "Maintenance" 
+             "Maintenance"
+             "Brightness" 
              "Quit")
     select opt in "${options[@]}"
     do
@@ -89,6 +90,10 @@ MainMenu(){
             ;;
             "Maintenance")
                 Maintenance
+                break
+            ;;
+            "Brightness")
+                Brightness
                 break
             ;;
             "Quit")
@@ -129,6 +134,7 @@ Working(){
             *) echo "invalid option $REPLY";;
         esac
     done
+    break
 }
 Gaming(){
     clear
@@ -160,13 +166,68 @@ Gaming(){
             *) echo "invalid option $REPLY";;
         esac
     done
+    break
+}
+Brightness(){
+    PS3='choose a brightness >> '
+    options=("Max" 
+             "Half"
+             "Min"
+             "Cancel"
+             )
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "Max")
+                sudo brightnessctl s 255
+                break
+            ;;
+            "Half")
+                sudo brightnessctl s 128
+                break
+            ;;
+            "Min")
+                sudo brightnessctl s 0
+                break
+            ;;
+            "Cancel")
+                clear
+                MainMenu
+                break
+            ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+    break
 }
 Maintenance(){
-    clear
-    figlet Setting Brightness
-    echo ;
-    sleep 1
-    sudo brightnessctl s 255
+    PS3='choose a brightness >> '
+    options=("Safe"
+             "Dangerous"
+             "Cancel"
+             )
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "Safe")
+                Safe
+                break
+            ;;
+            "Dangerous")
+                Dangerous
+                break
+            ;;
+            "Cancel")
+                clear
+                MainMenu
+                break
+            ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+    break
+}
+Safe(){
     clear
     figlet Starting Maintenance
     echo ;
@@ -190,6 +251,11 @@ Maintenance(){
     sleep 1
     clear
     MainMenu
+    break
+}
+Dangerous(){
+    clear
+    break
 }
 WebDev(){
     clear
