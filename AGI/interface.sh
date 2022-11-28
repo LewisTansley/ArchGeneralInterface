@@ -50,18 +50,14 @@ StartupAnimation(){
     clear
     figlet "ARCH"
     figlet "COMMANDER"
-    sleep 0.04
-    clear
-    figlet "Personal"
-    figlet "Interface"
     sleep 0.1
     echo ;
 }
 
 MainMenu(){
     clear
-    figlet Personal 
-    figlet Interface
+    figlet "ARCH"
+    figlet "COMMANDER"
     echo ;
 
     PS3='choose an option >> '
@@ -101,6 +97,7 @@ MainMenu(){
             *) echo "invalid option $REPLY";;
         esac
     done
+    break
 }
 
 Working(){
@@ -220,6 +217,8 @@ Brightness(){
     options=("Max" 
              "Half"
              "Min"
+             "Min-"
+             "Min--"
              "Cancel"
              )
     select opt in "${options[@]}"
@@ -227,14 +226,27 @@ Brightness(){
         case $opt in
             "Max")
                 sudo brightnessctl s 255
+                xrandr --output eDP --brightness 1
                 break
             ;;
             "Half")
                 sudo brightnessctl s 128
+                xrandr --output eDP --brightness 1
                 break
             ;;
             "Min")
                 sudo brightnessctl s 0
+                xrandr --output eDP --brightness 1
+                break
+            ;;
+            "Min-")
+                sudo brightnessctl s 0
+                xrandr --output eDP --brightness 0.66
+                break
+            ;;
+            "Min--")
+                sudo brightnessctl s 0
+                xrandr --output eDP --brightness 0.33
                 break
             ;;
             "Cancel")
