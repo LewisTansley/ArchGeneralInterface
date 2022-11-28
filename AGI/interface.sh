@@ -92,12 +92,11 @@ MainMenu(){
             ;;
             "Quit")
                 clear
-                break
+                exit
             ;;
             *) echo "invalid option $REPLY";;
         esac
     done
-    break
 }
 
 Working(){
@@ -251,7 +250,6 @@ Brightness(){
             ;;
             "Cancel")
                 clear
-                MainMenu
                 break
             ;;
             *) echo "invalid option $REPLY";;
@@ -286,12 +284,12 @@ Maintenance(){
             ;;
             "Cancel")
                 clear
-                MainMenu
                 break
             ;;
             *) echo "invalid option $REPLY";;
         esac
     done
+    MainMenu
     break
 }
 
@@ -323,6 +321,7 @@ Safe(){
 }
 Dangerous(){
     clear
+    MainMenu
     break
 }
 
@@ -339,7 +338,7 @@ WebDev(){
     nohup google-chrome-stable & disown
     nohup github-desktop & disown
     clear
-    break
+    exit
 }
 GameDev(){
     clear
@@ -371,15 +370,17 @@ GameDev(){
             *) echo "invalid option $REPLY";;
         esac
     done
+    clear
+    exit
 }
 
 Design(){
     clear
-    break
+    exit
 }
 Programming(){
     clear
-    break
+    exit
 }
 
 Solo(){
