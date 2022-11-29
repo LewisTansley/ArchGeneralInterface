@@ -1,5 +1,27 @@
 #!/bin/bash
 
+Init(){
+
+    session="Interface"
+
+    tmux new-session -d -s $session
+
+    window=0
+    tmux rename-window -t $session:$window 'bashtop'
+    tmux send-keys -t $session:$window 'bashtop'
+
+    window=1
+    tmux new-window -t $session:$window -n 'dua'
+    tmux send-keys -t $session:$window 'dua interactive'
+
+    window=2
+    tmux new-window -t $session:$window -n 'controls'
+    tmux send-keys -t $session:$window StartupAnimation
+    tmux -t $session:$window MainMenu
+
+    tmux attach-session -t $session
+}
+
 StartupAnimation(){
 
     clear
@@ -403,6 +425,6 @@ Social(){
     break
 }
 
-StartupAnimation
-MainMenu
+Init
+
 exit
