@@ -1,27 +1,5 @@
 #!/bin/bash
 
-Init(){
-
-    session="Interface"
-
-    tmux new-session -d -s $session
-
-    window=0
-    tmux rename-window -t $session:$window 'bashtop'
-    tmux send-keys -t $session:$window 'bashtop'
-
-    window=1
-    tmux new-window -t $session:$window -n 'dua'
-    tmux send-keys -t $session:$window 'dua interactive'
-
-    window=2
-    tmux new-window -t $session:$window -n 'controls'
-    tmux send-keys -t $session:$window StartupAnimation
-    tmux -t $session:$window MainMenu
-
-    tmux attach-session -t $session
-}
-
 StartupAnimation(){
 
     clear
@@ -114,7 +92,9 @@ MainMenu(){
             ;;
             "Quit")
                 clear
+                tmux kill-server
                 exit
+                break
             ;;
             *) echo "invalid option $REPLY";;
         esac
@@ -151,6 +131,7 @@ Working(){
             *) echo "invalid option $REPLY";;
         esac
     done
+    MainMenu
     break
 }
 Gaming(){
@@ -183,6 +164,7 @@ Gaming(){
             *) echo "invalid option $REPLY";;
         esac
     done
+    MainMenu
     break
 }
 
@@ -355,12 +337,13 @@ WebDev(){
     figlet WebDev
     sleep 0.2
     echo ;
-    
+    i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
     nohup code & disown
     nohup google-chrome-stable & disown
     nohup github-desktop & disown
     clear
-    exit
+    MainMenu
+    break
 }
 GameDev(){
     clear
@@ -393,16 +376,19 @@ GameDev(){
         esac
     done
     clear
-    exit
+    MainMenu
+    break
 }
 
 Design(){
     clear
-    exit
+    MainMenu
+    break
 }
 Programming(){
     clear
-    exit
+    MainMenu
+    break
 }
 
 Solo(){
@@ -410,8 +396,10 @@ Solo(){
     figlet Starting Solo Play
     echo ;
     sleep 1
+    i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
     nohup steam & disown
     clear
+    MainMenu
     break
 }
 Social(){
@@ -419,12 +407,15 @@ Social(){
     figlet Starting Social Play
     echo ;
     sleep 1
+    i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
     nohup discord & disown
     nohup steam & disown
     clear
+    MainMenu
     break
 }
 
-Init
-
+StartupAnimation
+MainMenu
+tmux kill-server
 exit
