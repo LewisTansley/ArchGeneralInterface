@@ -7,6 +7,7 @@ Init(){
     tmux new-session -d -s $session
 
     tmux set -g status off
+    tmux set-option -g mouse on
 
     window=0
     tmux rename-window -t $session:$window 'Interfacesession'
