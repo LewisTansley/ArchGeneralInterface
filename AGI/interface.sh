@@ -337,10 +337,9 @@ WebDev(){
     figlet WebDev
     sleep 0.2
     echo ;
-    i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
-    nohup code & disown
-    nohup google-chrome-stable & disown
-    nohup github-desktop & disown
+    #i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
+    nohup vscodium & disown
+    nohup google-chrome-stable $HOME/Documents/GitHub/StartPage/index.html & disown
     clear
     MainMenu
     break
