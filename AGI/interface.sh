@@ -63,9 +63,7 @@ MainMenu(){
     PS3='choose an option >> '
     options=("Working" 
              "Gaming"
-             "Config"
              "Maintenance"
-             "Brightness" 
              "Quit")
     select opt in "${options[@]}"
     do
@@ -78,16 +76,8 @@ MainMenu(){
                 Gaming
                 break
             ;;
-            "Config")
-                Config
-                break
-            ;;
             "Maintenance")
-                Maintenance
-                break
-            ;;
-            "Brightness")
-                Brightness
+                MaintenanceMode
                 break
             ;;
             "Quit")
@@ -168,122 +158,21 @@ Gaming(){
     break
 }
 
-Config(){
-    clear
-    figlet Select 
-    figlet Config
-    echo ;    
-
-    PS3='choose config file for editing >> '
-    options=("i3" 
-             "picom"
-             "alacritty"
-             "polybar"
-             "Cancel"
-             )
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            "i3")
-                break
-            ;;
-            "picom")
-                break
-            ;;
-            "alacritty")
-                break
-            ;;
-            "polybar")
-                break
-            ;;
-            "Cancel")
-                clear
-                MainMenu
-                break
-            ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-
-    clear
-    MainMenu
-    break
-}
-
-Brightness(){
-    clear
-    figlet Select 
-    figlet Value
-    echo ;
-    
-    PS3='choose a brightness >> '
-    options=("Max" 
-             "Half"
-             "Min"
-             "Min-"
-             "Min--"
-             "Cancel"
-             )
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            "Max")
-                sudo brightnessctl s 255
-                xrandr --output eDP --brightness 1
-                break
-            ;;
-            "Half")
-                sudo brightnessctl s 128
-                xrandr --output eDP --brightness 1
-                break
-            ;;
-            "Min")
-                sudo brightnessctl s 0
-                xrandr --output eDP --brightness 1
-                break
-            ;;
-            "Min-")
-                sudo brightnessctl s 0
-                xrandr --output eDP --brightness 0.66
-                break
-            ;;
-            "Min--")
-                sudo brightnessctl s 0
-                xrandr --output eDP --brightness 0.33
-                break
-            ;;
-            "Cancel")
-                clear
-                break
-            ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-    clear
-    MainMenu
-    break
-}
-
-Maintenance(){
+MaintenanceMode(){
     clear
     figlet Select 
     figlet Type
     echo ;
 
     PS3='choose a Maintenance Type >> '
-    options=("Safe"
-             "Dangerous"
+    options=("Run Maintenance"
              "Cancel"
              )
     select opt in "${options[@]}"
     do
         case $opt in
-            "Safe")
-                Safe
-                break
-            ;;
-            "Dangerous")
-                Dangerous
+            "Run Maintenance")
+                Maintenance
                 break
             ;;
             "Cancel")
@@ -297,34 +186,61 @@ Maintenance(){
     break
 }
 
-Safe(){
+Maintenance(){
     clear
     figlet Starting Maintenance
     echo ;
     sleep 1
     clear
+    figlet Updating Mirrors
+    echo ;
+    sleep 1
+    rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist
+    clear
     figlet Update
     echo ;
     sleep 1
-    yay -Syu
+    yay -Syyu
     clear
     figlet Cleaning Cache
     echo ;
     sleep 1
     yay -Sc
-    clear
-    figlet Clearing Orphans
-    echo ;
-    sleep 1
-    sudo pacman -Qtdq | sudo pacman -Rns
-
-    sleep 1
-    clear
+    Orphans
     MainMenu
     break
 }
-Dangerous(){
+
+Orphans(){
     clear
+    figlet Orphaned 
+    figlet Packages
+    echo ;
+
+    PS3='Clear Orphans? >> '
+    options=("Yes"
+             "No"
+             )
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "Yes")
+                clear
+                figlet Clearing Orphans
+                echo ;
+                sleep 1
+                sudo pacman -Qtdq | sudo pacman -Rns
+                sleep 1
+                clear
+                break
+            ;;
+            "No")
+                clear
+                break
+            ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
     MainMenu
     break
 }
@@ -374,17 +290,6 @@ GameDev(){
             *) echo "invalid option $REPLY";;
         esac
     done
-    clear
-    MainMenu
-    break
-}
-
-Design(){
-    clear
-    MainMenu
-    break
-}
-Programming(){
     clear
     MainMenu
     break

@@ -15,11 +15,11 @@ Init(){
     tmux select-pane -L
     tmux split-window -v -p 10
     tmux select-pane -R
-    tmux send-keys -t $session:$window 'bashtop' C-m
+    tmux send-keys -t $session:$window 'btop' C-m
     tmux select-pane -L
     tmux send-keys -t $session:$window 'dua interactive' C-m
     tmux select-pane -U
-    tmux send-keys -t $session:$window 'sh /home/lewis/Documents/GitHub/ArchGeneralInterface/AGI/interface.sh' C-m
+    tmux send-keys -t $session:$window 'sh $HOME/Documents/GitHub/ArchGeneralInterface/AGI/interface.sh' C-m
     tmux attach-session -t $session
 
 }
