@@ -254,8 +254,8 @@ WebDev(){
     sleep 0.2
     echo ;
     #i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
-    nohup vscodium & disown
-    nohup google-chrome-stable $HOME/Documents/GitHub/StartPage/index.html & disown
+    nohup cursor & disown
+    nohup /usr/bin/flatpak run --branch=stable --arch=x86_64 app.zen_browser.zen "localhost:8080" & disown
     clear
     MainMenu
     break

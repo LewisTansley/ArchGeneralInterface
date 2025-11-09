@@ -3,7 +3,7 @@
 Start(){
 
 
-    exec alacritty -e sh $HOME/Documents/GitHub/ArchGeneralInterface/AGI/sessionmanager.sh
+    exec kitty -e sh $HOME/Documents/GitHub/ArchGeneralInterface/AGI/sessionmanager.sh
 
 }
 
